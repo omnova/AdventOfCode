@@ -8,7 +8,7 @@ namespace AdventOfCode.Year2016.Day13
   {
     private const int GridSize = 70;
 
-    public string Run(string input)
+    public object Run(string input)
     {
       var grid = new bool[GridSize, GridSize];
 

@@ -6,7 +6,7 @@ namespace AdventOfCode.Year2017.Day10
 {
   public class Part2 : IPuzzle
   {
-    public string Run(string input)
+    public object Run(string input)
     {
       var list = Enumerable.Range(0, 256).ToList();
       var lengths = input.ToCharArray().Select(l => (int)l).ToList();

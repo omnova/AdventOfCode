@@ -6,7 +6,7 @@ namespace AdventOfCode.Year2016.Day11
 {
   public class Part1 : IPuzzle
   {
-    public string Run(string input)
+    public object Run(string input)
     {
       var floors = new List<int> { 4, 5, 1, 0 };
 

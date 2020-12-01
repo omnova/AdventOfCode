@@ -6,7 +6,7 @@ namespace AdventOfCode.Year2017.Day06
 {
   public class Part1 : IPuzzle
   {
-    public string Run(string input)
+    public object Run(string input)
     {
       var banks = input.Split().Select(int.Parse).ToList();
       var configurationHistory = new List<string>

@@ -6,7 +6,7 @@ namespace AdventOfCode
 {
   public interface IPuzzle
   {
-    string Run(string input);
+    object Run(string input);
   }
 
   public static class PuzzleRunner
@@ -50,7 +50,7 @@ namespace AdventOfCode
 
         try
         {
-          string output = puzzle.Run(input);
+          string output = puzzle.Run(input).ToString();
 
           Console.WriteLine(OutputFormat, year, day, part, output);
         }

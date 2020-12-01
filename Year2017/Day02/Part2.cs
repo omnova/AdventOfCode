@@ -6,7 +6,7 @@ namespace AdventOfCode.Year2017.Day02
 {
   public class Part2 : IPuzzle
   {
-    public string Run(string input)
+    public object Run(string input)
     {
       var spreadsheet = input.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries)
                              .Select(r => r.Split((char[])null, StringSplitOptions.RemoveEmptyEntries).Select(c => int.Parse(c)).ToList())

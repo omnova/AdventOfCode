@@ -6,7 +6,7 @@ namespace AdventOfCode.Year2016.Day15
 {
   public class Part1 : IPuzzle
   {
-    public string Run(string input)
+    public object Run(string input)
     {
       var positions = new List<Func<int, int>>
       {

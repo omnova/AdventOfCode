@@ -5,7 +5,7 @@ namespace AdventOfCode.Year2016.Day01
 {
   public class Part1 : IPuzzle
   {
-    public string Run(string input)
+    public object Run(string input)
     {
       int orientation = 1;
       var position = new int[] {0, 0};

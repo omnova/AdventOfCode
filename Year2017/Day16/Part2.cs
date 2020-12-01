@@ -6,7 +6,7 @@ namespace AdventOfCode.Year2017.Day16
 {
   public class Part2 : IPuzzle
   {
-    public string Run(string input)
+    public object Run(string input)
     {
       const int NumDances = 1000000000;
       var programs = Enumerable.Range(0, 16).Select(p => ((char)(p + 97))).ToArray();

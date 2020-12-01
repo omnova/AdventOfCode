@@ -5,7 +5,7 @@ namespace AdventOfCode.Year2016.Day03
 {
   public class Part1 : IPuzzle
   {
-    public string Run(string input)
+    public object Run(string input)
     {
       return input.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries)
                   .Select(t => t.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries))

@@ -6,7 +6,7 @@ namespace AdventOfCode.Year2016.Day12
 {
   public class Part1 : IPuzzle
   {
-    public string Run(string input)
+    public object Run(string input)
     {
       var registers = new Dictionary<string, int>
       {

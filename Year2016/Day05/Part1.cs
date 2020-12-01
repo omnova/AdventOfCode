@@ -7,7 +7,7 @@ namespace AdventOfCode.Year2016.Day05
 {
   public class Part1 : IPuzzle
   {
-    public string Run(string input)
+    public object Run(string input)
     {
       string password = string.Empty;
       int hashIndex = 0;

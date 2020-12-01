@@ -6,7 +6,7 @@ namespace AdventOfCode.Year2016.Day02
 {
   public class Part1 : IPuzzle
   {
-    public string Run(string input)
+    public object Run(string input)
     {
       string[] instructions = input.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
       string code = string.Empty;

@@ -4,7 +4,7 @@ namespace AdventOfCode.Year2019.Day14
 {
   public class Part1 : IPuzzle
   {
-    public string Run(string input)
+    public object Run(string input)
     {
       throw new NotImplementedException();
     }

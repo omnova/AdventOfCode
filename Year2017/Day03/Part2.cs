@@ -9,7 +9,7 @@ namespace AdventOfCode.Year2017.Day03
     const int GridSize = 11;
     const int GridOffset = GridSize / 2;
 
-    public string Run(string input)
+    public object Run(string input)
     {
       int inputValue = int.Parse(input);
 

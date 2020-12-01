@@ -4,7 +4,7 @@ namespace AdventOfCode.Year2017.Day03
 {
   public class Part1 : IPuzzle
   {
-    public string Run(string input)
+    public object Run(string input)
     {
       int target = int.Parse(input);
       int spiralSize, edgeMax;

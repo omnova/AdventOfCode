@@ -6,7 +6,7 @@ namespace AdventOfCode.Year2017.Day04
 {
   public class Part1 : IPuzzle
   {
-    public string Run(string input)
+    public object Run(string input)
     {
       var passphrases = input.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries)
                              .Select(r => r.Split((char[])null, StringSplitOptions.RemoveEmptyEntries).OrderBy(p => p).ToList())

@@ -5,7 +5,7 @@ namespace AdventOfCode.Year2016.Day09
 {
   public class Part1 : IPuzzle
   {
-    public string Run(string input)
+    public object Run(string input)
     {
       //var instructions = Regex.Matches(input, @"(?:\(\d+x\d+)\)(?!\(.*\))(\w+)")
       //                        .Cast<object>()

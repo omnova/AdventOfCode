@@ -6,7 +6,7 @@ namespace AdventOfCode.Year2016.Day06
 {
   public class Part2 : IPuzzle
   {
-    public string Run(string input)
+    public object Run(string input)
     {
       var lines = input.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).ToList();
       var letterRankings = new List<Dictionary<char, int>>();

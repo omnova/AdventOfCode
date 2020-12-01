@@ -6,7 +6,7 @@ namespace AdventOfCode.Year2018.Day05
 {
   public class Part1 : IPuzzle
   {
-    public string Run(string input)
+    public object Run(string input)
     {
       int lastLength = 0;
 

@@ -6,7 +6,7 @@ namespace AdventOfCode.Year2017.Day01
 {
   public class Part2 : IPuzzle
   {
-    public string Run(string input)
+    public object Run(string input)
     {
       int total = 0;
 

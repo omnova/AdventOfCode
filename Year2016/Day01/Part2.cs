@@ -6,7 +6,7 @@ namespace AdventOfCode.Year2016.Day01
 {
   public class Part2 : IPuzzle
   {
-    public string Run(string input)
+    public object Run(string input)
     {
       int orientation = 0;
       int[] position = {0, 0};

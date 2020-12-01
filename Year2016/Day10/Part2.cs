@@ -6,7 +6,7 @@ namespace AdventOfCode.Year2016.Day10
 {
   public class Part2 : IPuzzle
   {
-    public string Run(string input)
+    public object Run(string input)
     {
       var bots = Regex.Matches(input, @"bot \d+")
         .Cast<object>()

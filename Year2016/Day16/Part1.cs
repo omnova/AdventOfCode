@@ -7,7 +7,7 @@ namespace AdventOfCode.Year2016.Day16
 {
   public class Part1 : IPuzzle
   {
-    public string Run(string input)
+    public object Run(string input)
     {
       const int diskSize = 272;
 

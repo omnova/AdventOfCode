@@ -7,7 +7,7 @@ namespace AdventOfCode.Year2017.Day17
   {
     private const int NumInserts = 50000000;
 
-    public string Run(string input)
+    public object Run(string input)
     {
       int steps = int.Parse(input);
 

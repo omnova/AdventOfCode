@@ -6,13 +6,13 @@ namespace AdventOfCode.Year2017.Day14
 {
   public class Part2 : IPuzzle
   {
-    public string Run(string input)
+    public object Run(string input)
     {
       int count = 0;
 
       for (int i = 0; i < 128; i++)
       {
-        string knotHash = new AdventOfCode.Year2017.Day10.Part2().Run(input + "-" + i);
+        string knotHash = new AdventOfCode.Year2017.Day10.Part2().Run(input + "-" + i).ToString();
 
         foreach (char c in knotHash)
         {

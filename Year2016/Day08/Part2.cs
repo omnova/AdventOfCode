@@ -6,7 +6,7 @@ namespace AdventOfCode.Year2016.Day08
 {
   public class Part2 : IPuzzle
   {
-    public string Run(string input)
+    public object Run(string input)
     {
       const int ScreenSizeX = 50;
       const int ScreenSizeY = 6;

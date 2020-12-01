@@ -6,7 +6,7 @@ namespace AdventOfCode.Year2017.Day16
 {
   public class Part1 : IPuzzle
   {
-    public string Run(string input)
+    public object Run(string input)
     {
       var programs = string.Join(string.Empty, Enumerable.Range(0, 16).Select(p => ((char)(p + 97)).ToString()).ToList());
 

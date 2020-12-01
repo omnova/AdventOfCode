@@ -6,7 +6,7 @@ namespace AdventOfCode.Year2018.Day04
 {
   public class Part1 : IPuzzle
   {
-    public string Run(string input)
+    public object Run(string input)
     {
       var guards = new Dictionary<int, int[]>();
 
