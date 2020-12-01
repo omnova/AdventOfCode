@@ -11,7 +11,7 @@ namespace AdventOfCode
 
     private static void RunWithArgs(string[] args)
     {
-      const string argHelp = "Usage: advent <year> [<day [<part [\"<input text>\"]]]";
+      const string argHelp = "Usage: advent <year> [<day> [<part> [\"<input text>\"]]]";
 
       if (args.Length == 0)
       {
