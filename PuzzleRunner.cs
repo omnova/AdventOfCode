@@ -15,6 +15,9 @@ namespace AdventOfCode
     private const string InputPathFormat = "Year{0}/Day{1:0#}/Input.txt";
     private const string OutputFormat = "{0}.{1:0#}.{2}: {3}";
 
+    /// <summary>
+    /// Runs all puzzle solutions for the provided year.  Missing or not implemented solutions will be ignored.
+    /// </summary>
     public static void Run(int year)
     {
       for (int day = 1; day <= 25; day++)
@@ -24,12 +27,18 @@ namespace AdventOfCode
       }
     }
 
+    /// <summary>
+    /// Runs all puzzle solutions for the provided year and day.  
+    /// </summary>
     public static void Run(int year, int day)
     {
       Run(year, day, 1, false);
       Run(year, day, 2, false);
     }
 
+    /// <summary>
+    /// Runs the puzzle solution for the provided year, day, and part.    
+    /// </summary>
     public static void Run(int year, int day, int part)
     {
       Run(year, day, part, false);
@@ -42,7 +51,7 @@ namespace AdventOfCode
       if (puzzle == null)
       {
         if (!ignoreNotImplemented)
-          Console.WriteLine(OutputFormat, year, day, part, "Solution not implemented");
+          Console.WriteLine(OutputFormat, year, day, part, "Solution not implemented (Unable to find type " + string.Format(TypeNameFormat, year, day, part) + ")");
 
         return;
       }
@@ -76,13 +85,16 @@ namespace AdventOfCode
       }
     }
 
+    /// <summary>
+    /// Runs the puzzle solution for the provided year, day, and part, using the provided input.
+    /// </summary>
     public static void Run(int year, int day, int part, string input)
     {
       var puzzle = GetPuzzle(year, day, part);
 
       if (puzzle == null)
       {
-        Console.WriteLine(OutputFormat, year, day, part, "Unable to find type");
+        Console.WriteLine(OutputFormat, year, day, part, "Solution not implemented (Unable to find type " + string.Format(TypeNameFormat, year, day, part) + ")");
         return;
       }
 
