@@ -17,11 +17,11 @@ namespace AdventOfCode.Year2020.Day01
             continue;
 
           if (expenses[i] + expenses[j] == 2020)
-            return (expenses[i] * expenses[j]).ToString();
+            return (expenses[i] * expenses[j]);
         }
       }
 
-      return "no value";
+      return null;
     }
   }
 }
