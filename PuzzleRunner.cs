@@ -12,22 +12,8 @@ namespace AdventOfCode
   public static class PuzzleRunner
   {
     private const string TypeNameFormat = "AdventOfCode.Year{0}.Day{1:0#}.Part{2}";
+    private const string InputPathFormat = "Year{0}/Day{1:0#}/Input.txt";
     private const string OutputFormat = "{0}.{1:0#}.{2}: {3}";
-
-    private static class InputManager
-    {
-      private const string InputPathFormat = "Year{0}/Day{1:0#}/Input.txt";
-
-      public static string GetInputText(int year, int day)
-      {
-        string relativePath = string.Format(InputPathFormat, year, day);
-
-        if (File.Exists(relativePath))
-          return File.ReadAllText(relativePath);
-
-        return string.Empty;
-      }
-    }
 
     public static void Run(int year)
     {
@@ -45,7 +31,7 @@ namespace AdventOfCode
 
     public static void Run(int year, int day, int part)
     {
-      Run(year, day, part, InputManager.GetInputText(year, day));
+      Run(year, day, part, GetInputText(year, day));
     }
 
     public static void Run(int year, int day, int part, string input)
@@ -83,6 +69,15 @@ namespace AdventOfCode
         // Safety net.
       }
     }
-  }
 
+    private static string GetInputText(int year, int day)
+    {
+      string relativePath = string.Format(InputPathFormat, year, day);
+
+      if (File.Exists(relativePath))
+        return File.ReadAllText(relativePath);
+
+      return string.Empty;
+    }
+  }
 }
