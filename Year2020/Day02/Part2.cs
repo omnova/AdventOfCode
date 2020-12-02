@@ -20,7 +20,7 @@ namespace AdventOfCode.Year2020.Day02
         char ruleChar = parts[2][0];
         string password = parts[3];
 
-        if ((password[position1] == ruleChar && password[position2] != ruleChar) || (password[position1] != ruleChar && password[position2] == ruleChar))
+        if (password[position1] == ruleChar ^ password[position2] == ruleChar)
           numValidPasswords++;
       }
 
