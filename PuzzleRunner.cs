@@ -14,6 +14,21 @@ namespace AdventOfCode
     private const string TypeNameFormat = "AdventOfCode.Year{0}.Day{1:0#}.Part{2}";
     private const string OutputFormat = "{0}.{1:0#}.{2}: {3}";
 
+    private static class InputManager
+    {
+      private const string InputPathFormat = "Year{0}/Day{1:0#}/Input.txt";
+
+      public static string GetInputText(int year, int day)
+      {
+        string relativePath = string.Format(InputPathFormat, year, day);
+
+        if (File.Exists(relativePath))
+          return File.ReadAllText(relativePath);
+
+        return string.Empty;
+      }
+    }
+
     public static void Run(int year)
     {
       for (int day = 1; day <= 25; day++)
@@ -70,18 +85,4 @@ namespace AdventOfCode
     }
   }
 
-  public static class InputManager
-  {
-    private const string InputPathFormat = "../../../Year{0}/Day{1:0#}/Input.txt";
-
-    public static string GetInputText(int year, int day)
-    {
-      string relativePath = string.Format(InputPathFormat, year, day);
-
-      if (File.Exists(relativePath))
-        return File.ReadAllText(relativePath);
-    
-      return string.Empty;
-    }
-  }
 }
