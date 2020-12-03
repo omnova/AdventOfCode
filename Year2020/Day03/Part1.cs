@@ -8,7 +8,17 @@ namespace AdventOfCode.Year2020.Day03
   {
     public object Run(string input)
     {
-      throw new NotImplementedException();
+      var grid = input.Split(Environment.NewLine).Select(l => l.ToCharArray()).ToArray();
+
+      int numTrees = 0;
+
+      for (int x = 0, y = 0; y < grid.Length; x = (x + 3) % grid[0].Length, y += 1)
+      {
+        if (grid[y][x] == '#')
+          numTrees++;
+      }
+
+      return numTrees;
     }
   }
 }
