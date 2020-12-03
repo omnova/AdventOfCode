@@ -9,7 +9,7 @@ namespace AdventOfCode.Year2020.Day03
     {
       var grid = input.Split(Environment.NewLine).Select(l => l.ToCharArray()).ToArray();
 
-      int numTrees = grid.Where((g, y) => g[(3 * y) % g.Length] == '#').ToList().Count();
+      int numTrees = grid.Where((g, y) => g[(3 * y) % g.Length] == '#').Count();
 
       return numTrees;
     }
