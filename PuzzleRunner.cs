@@ -56,6 +56,14 @@ namespace AdventOfCode
         return;
       }
 
+      if (!IsPuzzleImplemented(puzzle))
+      {
+        if (!ignoreNotImplemented)
+          Console.WriteLine(OutputFormat, year, day, part, "Solution not implemented");
+
+        return;
+      }
+
       string input;
 
       try
@@ -76,6 +84,7 @@ namespace AdventOfCode
       }
       catch (NotImplementedException)
       {
+        // Redundant but whatever
         if (!ignoreNotImplemented)
           Console.WriteLine(OutputFormat, year, day, part, "Solution not implemented");
       }
@@ -98,6 +107,12 @@ namespace AdventOfCode
         return;
       }
 
+      if (!IsPuzzleImplemented(puzzle))
+      {
+        Console.WriteLine(OutputFormat, year, day, part, "Solution not implemented");
+        return;
+      }
+
       if (string.IsNullOrEmpty(input))
       {
         Console.WriteLine(OutputFormat, year, day, part, "No input provided");
@@ -112,6 +127,7 @@ namespace AdventOfCode
       }
       catch (NotImplementedException)
       {
+        // Redundant but whatever
         Console.WriteLine(OutputFormat, year, day, part, "Solution not implemented");
       }
       catch (Exception e)
@@ -136,6 +152,21 @@ namespace AdventOfCode
       {
         return null;
       }
+    }
+
+    private static bool IsPuzzleImplemented(IPuzzle puzzle)
+    {
+      try
+      {
+        puzzle.Run(string.Empty);
+      }
+      catch (NotImplementedException)
+      {
+        return false;
+      }
+      catch { }
+
+      return true;
     }
 
     private static string GetInputFileText(int year, int day)
