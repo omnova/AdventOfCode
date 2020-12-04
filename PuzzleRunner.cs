@@ -22,8 +22,10 @@ namespace AdventOfCode
     {
       for (int day = 1; day <= 25; day++)
       {
-        Run(year, day, 1, true);
-        Run(year, day, 2, true);
+        string inputFilePath = GetDefaultInputFilePath(year, day);
+
+        RunInternal(year, day, 1, inputFilePath, true);
+        RunInternal(year, day, 2, inputFilePath, true);
       }
     }
 
@@ -32,8 +34,10 @@ namespace AdventOfCode
     /// </summary>
     public static void Run(int year, int day)
     {
-      Run(year, day, 1, false);
-      Run(year, day, 2, false);
+      string inputFilePath = GetDefaultInputFilePath(year, day);
+
+      RunInternal(year, day, 1, inputFilePath, false);
+      RunInternal(year, day, 2, inputFilePath, false);
     }
 
     /// <summary>
@@ -41,10 +45,20 @@ namespace AdventOfCode
     /// </summary>
     public static void Run(int year, int day, int part)
     {
-      Run(year, day, part, false);
+      string inputFilePath = GetDefaultInputFilePath(year, day);
+
+      RunInternal(year, day, part, inputFilePath, false);
     }
 
-    private static void Run(int year, int day, int part, bool ignoreNotImplemented)
+    /// <summary>
+    /// Runs the puzzle solution for the provided year, day, and part, using the provided input file.
+    /// </summary>
+    public static void Run(int year, int day, int part, string inputFilePath)
+    {
+      RunInternal(year, day, part, inputFilePath, false);
+    }
+
+    private static void RunInternal(int year, int day, int part, string inputFilePath, bool ignoreNotImplemented)
     {
       var puzzle = GetPuzzle(year, day, part);
 
@@ -68,7 +82,7 @@ namespace AdventOfCode
 
       try
       {
-        input = GetInputFileText(year, day);
+        input = GetInputFileText(inputFilePath);
       }
       catch (FileNotFoundException e)
       {
@@ -87,48 +101,6 @@ namespace AdventOfCode
         // Redundant but whatever
         if (!ignoreNotImplemented)
           Console.WriteLine(OutputFormat, year, day, part, "Solution not implemented");
-      }
-      catch (Exception e)
-      {
-        Console.WriteLine(OutputFormat, year, day, part, "Execution failed (" + e.Message + ")");
-      }
-    }
-
-    /// <summary>
-    /// Runs the puzzle solution for the provided year, day, and part, using the provided input.
-    /// </summary>
-    public static void Run(int year, int day, int part, string input)
-    {
-      var puzzle = GetPuzzle(year, day, part);
-
-      if (puzzle == null)
-      {
-        Console.WriteLine(OutputFormat, year, day, part, "Solution not implemented (Unable to find type " + string.Format(TypeNameFormat, year, day, part) + ")");
-        return;
-      }
-
-      if (!IsPuzzleImplemented(puzzle))
-      {
-        Console.WriteLine(OutputFormat, year, day, part, "Solution not implemented");
-        return;
-      }
-
-      if (string.IsNullOrEmpty(input))
-      {
-        Console.WriteLine(OutputFormat, year, day, part, "No input provided");
-        return;
-      }
-
-      try
-      {
-        string output = puzzle.Run(input)?.ToString() ?? "<null>";
-
-        Console.WriteLine(OutputFormat, year, day, part, output);
-      }
-      catch (NotImplementedException)
-      {
-        // Redundant but whatever
-        Console.WriteLine(OutputFormat, year, day, part, "Solution not implemented");
       }
       catch (Exception e)
       {
@@ -169,10 +141,13 @@ namespace AdventOfCode
       return true;
     }
 
-    private static string GetInputFileText(int year, int day)
+    private static string GetDefaultInputFilePath(int year, int day)
     {
-      string inputFilePath = string.Format(InputPathFormat, year, day);
+      return string.Format(InputPathFormat, year, day);
+    }
 
+    private static string GetInputFileText(string inputFilePath)
+    {
       if (!File.Exists(inputFilePath))
         throw new FileNotFoundException(Path.GetFullPath(inputFilePath));
 
