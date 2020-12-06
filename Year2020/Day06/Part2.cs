@@ -14,18 +14,10 @@ namespace AdventOfCode.Year2020.Day06
 
       foreach (var group in groups)
       {
-        var groupAnswers = new HashSet<char>("abcdefghijklmnopqrstuvwxyz".ToCharArray());
+        var people = group.Split(Environment.NewLine).ToList();
+        var groupAnswers = new HashSet<char>(people.SelectMany(p => p));
 
-        var people = group.Split(Environment.NewLine);
-
-        foreach (var person in people)
-        {
-          var personAnswers = new HashSet<char>();
-
-          person.ToCharArray().ToList().ForEach(y => personAnswers.Add(y));
-
-          groupAnswers.IntersectWith(personAnswers);
-        }
+        people.ForEach(person => groupAnswers.IntersectWith(new HashSet<char>(person.ToCharArray())));
 
         totalYesCounts += groupAnswers.Count;
       }
