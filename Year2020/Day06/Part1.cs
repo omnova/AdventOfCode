@@ -10,15 +10,7 @@ namespace AdventOfCode.Year2020.Day06
     {
       var groups = input.Split(Environment.NewLine + Environment.NewLine);
 
-      int totalYesCounts = 0;
-
-      foreach (var group in groups)
-      {
-        var people = group.Split(Environment.NewLine).ToList();
-        var groupAnswers = new HashSet<char>(people.SelectMany(p => p));
-
-        totalYesCounts += groupAnswers.Count();
-      }
+      int totalYesCounts = groups.Sum(group => group.Replace(Environment.NewLine, "").ToCharArray().Distinct().Count());
 
       return totalYesCounts;
     }
