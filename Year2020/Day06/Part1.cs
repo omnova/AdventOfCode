@@ -14,10 +14,8 @@ namespace AdventOfCode.Year2020.Day06
 
       foreach (var group in groups)
       {
-        var groupAnswers = new HashSet<char>();
         var people = group.Split(Environment.NewLine).ToList();
-
-        people.ForEach(person => person.ToCharArray().ToList().ForEach(y => groupAnswers.Add(y)));
+        var groupAnswers = new HashSet<char>(people.SelectMany(p => p));
 
         totalYesCounts += groupAnswers.Count();
       }
