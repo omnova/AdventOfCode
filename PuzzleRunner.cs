@@ -9,6 +9,22 @@ namespace AdventOfCode
     object Run(string input);
   }
 
+  [System.AttributeUsage(System.AttributeTargets.Class)]
+  public class PuzzleAttribute : System.Attribute
+  {
+    public int Year;
+    public int Day;
+    public int Part;
+
+    public PuzzleAttribute(int year, int day, int part)
+    {
+      this.Year = year;
+      this.Day = day;
+      this.Part = part;
+    }
+  }
+
+
   public static class PuzzleRunner
   {
     private const string TypeNameFormat = "AdventOfCode.Year{0}.Day{1:0#}.Part{2}";
@@ -51,6 +67,15 @@ namespace AdventOfCode
     }
 
     /// <summary>
+    /// Runs the puzzle solutions for the provided year and day, using the provided input file.    
+    /// </summary>
+    public static void Run(int year, int day, string inputFilePath)
+    {
+      RunInternal(year, day, 1, inputFilePath, false);
+      RunInternal(year, day, 2, inputFilePath, false);
+    }
+
+    /// <summary>
     /// Runs the puzzle solution for the provided year, day, and part, using the provided input file.
     /// </summary>
     public static void Run(int year, int day, int part, string inputFilePath)
@@ -58,7 +83,7 @@ namespace AdventOfCode
       RunInternal(year, day, part, inputFilePath, false);
     }
 
-    private static void RunInternal(int year, int day, int part, string inputFilePath, bool ignoreNotImplemented)
+    private static void RunInternal(int year, int day, int part, string inputFilePath, bool ignoreNotImplemented = false)
     {
       var puzzle = GetPuzzle(year, day, part);
 
@@ -70,41 +95,36 @@ namespace AdventOfCode
         return;
       }
 
-      if (!IsPuzzleImplemented(puzzle))
-      {
-        if (!ignoreNotImplemented)
-          Console.WriteLine(OutputFormat, year, day, part, "Solution not implemented");
-
-        return;
-      }
-
-      string input;
+      string input = string.Empty;
+      bool fileFound = false;
 
       try
       {
         input = GetInputFileText(inputFilePath);
+        fileFound = true;
       }
-      catch (FileNotFoundException e)
-      {
-        Console.WriteLine(OutputFormat, year, day, part, "Unable to find input file (" + e.Message + ")");
-        return;
-      }
+      catch { }
 
       try
       {
         string output = puzzle.Run(input)?.ToString() ?? "<null>";
 
-        Console.WriteLine(OutputFormat, year, day, part, output);
+        if (!fileFound)
+          Console.WriteLine(OutputFormat, year, day, part, "Unable to read input file (" + Path.GetFullPath(inputFilePath) + ")");
+        else
+          Console.WriteLine(OutputFormat, year, day, part, output);
       }
       catch (NotImplementedException)
       {
-        // Redundant but whatever
         if (!ignoreNotImplemented)
           Console.WriteLine(OutputFormat, year, day, part, "Solution not implemented");
       }
       catch (Exception e)
       {
-        Console.WriteLine(OutputFormat, year, day, part, "Execution failed (" + e.Message + ")");
+        if (!fileFound)
+          Console.WriteLine(OutputFormat, year, day, part, "Unable to read input file (" + Path.GetFullPath(inputFilePath) + ")");
+        else
+          Console.WriteLine(OutputFormat, year, day, part, "Execution failed (" + e.Message + ")");
       }
     }
 
@@ -123,22 +143,7 @@ namespace AdventOfCode
       catch
       {
         return null;
-      }
-    }
-
-    private static bool IsPuzzleImplemented(IPuzzle puzzle)
-    {
-      try
-      {
-        puzzle.Run(string.Empty);
-      }
-      catch (NotImplementedException)
-      {
-        return false;
-      }
-      catch { }
-
-      return true;
+      } 
     }
 
     private static string GetDefaultInputFilePath(int year, int day)

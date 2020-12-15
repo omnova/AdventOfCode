@@ -11,7 +11,7 @@ namespace AdventOfCode
 
     private static void RunWithArgs(string[] args)
     {
-      const string argHelp = "Usage: advent <year> [<day> [<part> [\"<input text>\"]]]";
+      const string argHelp = "Usage: advent <year> [<day> [[<part>] \"<input file path>\"]]";
 
       if (args.Length == 0)
       {
@@ -23,20 +23,29 @@ namespace AdventOfCode
       int year;
       int? day = null;
       int? part = null;
-      string input = null;
+      string inputFilePath = null;
 
       try
       {
         year = int.Parse(args[0]);
 
         if (args.Length > 1)
+        {
           day = int.Parse(args[1]);
 
-        if (args.Length > 2)
-          part = int.Parse(args[2]);
+          if (args.Length > 2)
+          {
+            if (args[2] == "1" || args[2] == "2")
+            {
+              part = int.Parse(args[2]);
 
-        if (args.Length > 3)
-          input = args[3];
+              if (args.Length > 3)
+                inputFilePath = args[3];
+            }
+            else
+              inputFilePath = args[2];
+          }
+        }
       }
       catch
       {
@@ -50,11 +59,13 @@ namespace AdventOfCode
       {
         if (part.HasValue)
         {
-          if (!string.IsNullOrEmpty(input))
-            PuzzleRunner.Run(year, day.Value, part.Value, input);
+          if (!string.IsNullOrEmpty(inputFilePath))
+            PuzzleRunner.Run(year, day.Value, part.Value, inputFilePath);
           else
             PuzzleRunner.Run(year, day.Value, part.Value);
         }
+        else if (!string.IsNullOrEmpty(inputFilePath))
+          PuzzleRunner.Run(year, day.Value, inputFilePath);
         else
           PuzzleRunner.Run(year, day.Value);
       }
