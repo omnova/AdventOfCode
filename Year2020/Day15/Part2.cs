@@ -22,19 +22,9 @@ namespace AdventOfCode.Year2020.Day15
 
       for (int i = numbers.Count; i < 30000000; i++)
       {
-        int nextNumber = 0;
+        int nextNumber = isLastNumberNew ? 0 : i - 1 - lastUsages[lastNumber];
 
-        // Last turn
-        if (isLastNumberNew)
-        {
-          nextNumber = 0;
-          lastUsages[lastNumber] = i - 1;
-        }
-        else
-        {
-          nextNumber = i - 1 - lastUsages[lastNumber];
-          lastUsages[lastNumber] = i - 1;
-        }
+        lastUsages[lastNumber] = i - 1;
 
         isLastNumberNew = !lastUsages.ContainsKey(nextNumber);
         lastNumber = nextNumber;
