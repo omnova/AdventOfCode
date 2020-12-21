@@ -8,9 +8,10 @@ namespace AdventOfCode.Year2020.Day20
   {
     private int orientation = 0;
     private List<bool[,]> cachedOrientations = new List<bool[,]>();
-    private int size = 0;
 
     public long Id { get; private set; }
+    public int Size = 0;
+
     public bool[,] Data => this.cachedOrientations[this.orientation];
 
     public List<bool[,]> Orientations => this.cachedOrientations;
@@ -20,13 +21,13 @@ namespace AdventOfCode.Year2020.Day20
       var lines = data.Split(Environment.NewLine);
 
       this.Id = int.Parse(lines[0]);
-      this.size = lines[1].Length;
+      this.Size = lines[1].Length;
 
-      var initialOrientation = new bool[this.size, this.size];
+      var initialOrientation = new bool[this.Size, this.Size];
 
-      for (int y = 0; y < this.size; y++)
+      for (int y = 0; y < this.Size; y++)
       {
-        for (int x = 0; x < this.size; x++)
+        for (int x = 0; x < this.Size; x++)
           initialOrientation[x, y] = lines[y + 1][x] == '#';
       }
 
@@ -39,9 +40,9 @@ namespace AdventOfCode.Year2020.Day20
       {
         bool isMatch = true;
 
-        for (int i = 0; i < this.size; i++)
+        for (int i = 0; i < this.Size; i++)
         {
-          if (this.Data[this.size - 1, i] != tile.Data[0, i])
+          if (this.Data[this.Size - 1, i] != tile.Data[0, i])
           {
             isMatch = false;
             break;
@@ -67,9 +68,9 @@ namespace AdventOfCode.Year2020.Day20
       {
         bool isMatch = true;
 
-        for (int i = 0; i < this.size; i++)
+        for (int i = 0; i < this.Size; i++)
         {
-          if (this.Data[0, i] != tile.Data[this.size - 1, i])
+          if (this.Data[0, i] != tile.Data[this.Size - 1, i])
           {
             isMatch = false;
             break;
@@ -95,9 +96,9 @@ namespace AdventOfCode.Year2020.Day20
       {
         bool isMatch = true;
 
-        for (int i = 0; i < this.size; i++)
+        for (int i = 0; i < this.Size; i++)
         {
-          if (this.Data[i, 0] != tile.Data[i, this.size - 1])
+          if (this.Data[i, 0] != tile.Data[i, this.Size - 1])
           {
             isMatch = false;
             break;
@@ -123,9 +124,9 @@ namespace AdventOfCode.Year2020.Day20
       {
         bool isMatch = true;
 
-        for (int i = 0; i < this.size; i++)
+        for (int i = 0; i < this.Size; i++)
         {
-          if (this.Data[i, this.size - 1] != tile.Data[i, 0])
+          if (this.Data[i, this.Size - 1] != tile.Data[i, 0])
           {
             isMatch = false;
             break;
@@ -166,13 +167,13 @@ namespace AdventOfCode.Year2020.Day20
 
     private bool[,] GetRotatedTile(bool[,] tile)
     {
-      var rotatedTile = new bool[this.size, this.size];
+      var rotatedTile = new bool[this.Size, this.Size];
 
-      for (int i = 0; i < this.size; i++)
+      for (int i = 0; i < this.Size; i++)
       {
-        for (int j = 0; j < this.size; j++)
+        for (int j = 0; j < this.Size; j++)
         {
-          rotatedTile[i, j] = tile[this.size - j - 1, i];
+          rotatedTile[i, j] = tile[this.Size - j - 1, i];
         }
       }
 
@@ -181,13 +182,13 @@ namespace AdventOfCode.Year2020.Day20
 
     private bool[,] GetFlippedHorizontal(bool[,] tile)
     {
-      var flippedTile = new bool[this.size, this.size];
+      var flippedTile = new bool[this.Size, this.Size];
 
-      for (int i = 0; i < this.size; i++)
+      for (int i = 0; i < this.Size; i++)
       {
         for (int j = 0; j < tile.GetLength(0); j++)
         {
-          flippedTile[i, j] = tile[this.size - i - 1, j];
+          flippedTile[i, j] = tile[this.Size - i - 1, j];
         }
       }
 
@@ -196,13 +197,13 @@ namespace AdventOfCode.Year2020.Day20
 
     private bool[,] GetFlippedVertical(bool[,] tile)
     {
-      var flippedTile = new bool[this.size, this.size];
+      var flippedTile = new bool[this.Size, this.Size];
 
-      for (int i = 0; i < this.size; i++)
+      for (int i = 0; i < this.Size; i++)
       {
-        for (int j = 0; j < this.size; j++)
+        for (int j = 0; j < this.Size; j++)
         {
-          flippedTile[i, j] = tile[i, this.size - j - 1];
+          flippedTile[i, j] = tile[i, this.Size - j - 1];
         }
       }
 
@@ -218,9 +219,9 @@ namespace AdventOfCode.Year2020.Day20
     {
       string output = "Tile " + this.Id + " (orientation = " + orientation + "):" + Environment.NewLine;
 
-      for (int y = 0; y < this.size; y++)
+      for (int y = 0; y < this.Size; y++)
       {
-        for (int x = 0; x < this.size; x++)
+        for (int x = 0; x < this.Size; x++)
           output += this.cachedOrientations[orientation][x, y] ? '#' : '.';
 
         output += Environment.NewLine;
