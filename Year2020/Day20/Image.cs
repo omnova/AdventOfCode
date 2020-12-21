@@ -144,75 +144,21 @@ namespace AdventOfCode.Year2020.Day20
         if (i == 0)
           this.Orientations.Add(initialOrientation);
         else
-          this.Orientations.Add(GetRotatedTile(this.Orientations[i * 3 - 3]));
+          this.Orientations.Add(this.Orientations[i * 3 - 3].RotateClockwise());
 
-        this.Orientations.Add(GetFlippedHorizontal(this.Orientations[i * 3]));
-        this.Orientations.Add(GetFlippedVertical(this.Orientations[i * 3]));
+        this.Orientations.Add(this.Orientations[i * 3].FlipHorizontal());
+        this.Orientations.Add(this.Orientations[i * 3].FlipVertical());
       }
     }
 
-    private bool[,] GetRotatedTile(bool[,] tile)
-    {
-      var rotatedTile = new bool[this.Size, this.Size];
-
-      for (int i = 0; i < this.Size; i++)
-      {
-        for (int j = 0; j < this.Size; j++)
-        {
-          rotatedTile[i, j] = tile[this.Size - j - 1, i];
-        }
-      }
-
-      return rotatedTile;
-    }
-
-    private bool[,] GetFlippedHorizontal(bool[,] tile)
-    {
-      var flippedTile = new bool[this.Size, this.Size];
-
-      for (int i = 0; i < this.Size; i++)
-      {
-        for (int j = 0; j < tile.GetLength(0); j++)
-        {
-          flippedTile[i, j] = tile[this.Size - i - 1, j];
-        }
-      }
-
-      return flippedTile;
-    }
-
-    private bool[,] GetFlippedVertical(bool[,] tile)
-    {
-      var flippedTile = new bool[this.Size, this.Size];
-
-      for (int i = 0; i < this.Size; i++)
-      {
-        for (int j = 0; j < this.Size; j++)
-        {
-          flippedTile[i, j] = tile[i, this.Size - j - 1];
-        }
-      }
-
-      return flippedTile;
-    }
     public override string ToString()
     {
       return this.ToString(0);
     }
 
     public string ToString(int orientation)
-    {
-      string output = "";
-
-      for (int y = 0; y < this.Size; y++)
-      {
-        for (int x = 0; x < this.Size; x++)
-          output += this.Orientations[orientation][x, y] ? '#' : '.';
-
-        output += Environment.NewLine;
-      }
-
-      return output;
+    {      
+      return this.Orientations[orientation].ToString(v => v ? '#' : '.');
     }
   }
 }
