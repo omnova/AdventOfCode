@@ -49,9 +49,9 @@ namespace AdventOfCode
     public static T[,] ToMultidimensionalArray<T>(this IEnumerable<IEnumerable<T>> source) where T : new()
     {
       if (source.Count() == 0 || source.FirstOrDefault()?.Count() == 0)
-        return null;
+        throw new ArgumentException("This would result in a 0-dimension array");
 
-      var destination = new T[source.Count(), source.FirstOrDefault().Count()];
+      var destination = new T[source.Count(), source.Select(s => s.Count()).Max()];
 
       int j = 0;
       
@@ -213,6 +213,9 @@ namespace AdventOfCode
     /// </summary>
     public static T[] Row<T>(this T[,] source, int rowIndex) where T : new()
     {
+      if (rowIndex < 0 || rowIndex >= source.GetLength(0))
+        throw new ArgumentException(rowIndex + " is not a valid row index in this array");
+
       var row = new T[source.GetLength(0)];
 
       for (int i = 0; i < row.Length; i++)
@@ -226,6 +229,9 @@ namespace AdventOfCode
     /// </summary>
     public static T[] Column<T>(this T[,] source, int columnIndex) where T : new()
     {
+      if (columnIndex < 0 || columnIndex >= source.GetLength(0))
+        throw new ArgumentException(columnIndex + " is not a valid column index in this array");
+
       var row = new T[source.GetLength(0)];
 
       for (int i = 0; i < row.Length; i++)
