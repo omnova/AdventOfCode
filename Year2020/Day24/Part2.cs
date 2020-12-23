@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AdventOfCode.Year2020.Day23
+namespace AdventOfCode.Year2020.Day24
 {
   public class Part2 : IPuzzle
   {
