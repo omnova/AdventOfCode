@@ -1,4 +1,4 @@
-# AdventOfCode5
+# AdventOfCode
 All of my Advent of Code puzzle solutions from over the years, consolidated into a single .NET 6 project.  
 
 Project overview
