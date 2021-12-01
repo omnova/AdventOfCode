@@ -8,9 +8,9 @@ namespace AdventOfCode.Year2020.Day07
   {
     public object Run(string input)
     {
-      var lines = input.Split("." + Environment.NewLine);
+      var lines = input.Replace(" bags", "").Replace(" bag", "").Split("." + Environment.NewLine);
 
-      var relationships = new Dictionary<string, Dictionary<string, int>>();
+      var bagContents = new Dictionary<string, Dictionary<string, int>>();
 
       foreach (var line in lines)
       {
@@ -18,41 +18,28 @@ namespace AdventOfCode.Year2020.Day07
 
         string container = parts[0];
 
-        relationships.TryAdd(container, new Dictionary<string, int>());
+        bagContents.Add(container, new Dictionary<string, int>());
 
-        if (parts[1] == "no other bags")
+        if (parts[1] == "no other")
           continue;
 
         foreach (var contains in parts[1].Split(", "))
         {
-          string contained = contains.Substring(contains.IndexOf(' ') + 1);
-
-          if (contained.Last() == 'g')
-            contained += "s";
-
+          string containedBags = contains.Substring(contains.IndexOf(' ') + 1);
           int number = int.Parse(contains.Substring(0, contains.IndexOf(' ')));
 
-          if (!relationships[container].TryAdd(contained, number))
-            relationships[container][contained] += number;
-
-          if (!relationships.ContainsKey(contained))
-            relationships.Add(contained, new Dictionary<string, int>());
+          bagContents[container].Add(containedBags, number);
         }
       }
 
-      int numGoldContainers = GetContainedBagCount(relationships, "shiny gold bags");
-
+      int numGoldContainers = GetContainedBagCount(bagContents, "shiny gold");
+      
       return numGoldContainers;
     }
 
-    private int GetContainedBagCount(Dictionary<string, Dictionary<string, int>> relationships, string container)
+    private int GetContainedBagCount(Dictionary<string, Dictionary<string, int>> bagContents, string container)
     {
-      int numContainedBags = 0;
-
-      foreach (var contained in relationships[container])
-      {
-        numContainedBags += GetContainedBagCount(relationships, contained.Key) * contained.Value + contained.Value;
-      }
+      int numContainedBags = bagContents[container].Sum(contained => GetContainedBagCount(bagContents, contained.Key) * contained.Value + contained.Value);
 
       return numContainedBags;
     }

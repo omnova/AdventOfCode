@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 
-namespace AdventOfCode.Year2020.Day17
+namespace AdventOfCode.Year2021.Day03
 {
   public class Part1 : IPuzzle
   {
     public object Run(string input)
     {
-
-      return null;
+      throw new NotImplementedException();
     }
   }
 }

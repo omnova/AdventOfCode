@@ -51,7 +51,7 @@ namespace AdventOfCode.Year2020.Day16
 
       var fields = sections[0].Split(Environment.NewLine).Select(f => new Field(f)).ToList();
       var ticketValues = sections[1].Split(Environment.NewLine)[1].Split(',').Select(int.Parse).ToList();
-      var nearbyTicketValues = sections[2].Split(Environment.NewLine).Where(t => !t.StartsWith("nearby")).Select(t => t.Split(',').Select(int.Parse).ToList()).ToList();
+      var nearbyTicketValues = sections[2].Split(Environment.NewLine).Skip(1).Select(t => t.Split(',').Select(int.Parse).ToList()).ToList();
 
       long errorRate = nearbyTicketValues.SelectMany(v => v).Where(v => !fields.Any(f => f.IsValidValue(v))).Sum();
 

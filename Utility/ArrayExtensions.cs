@@ -29,9 +29,9 @@ namespace AdventOfCode
     /// <summary>
     /// Copies the contents of this array into another
     /// </summary>
-    public static void CopyTo<T>(this T[,] source, T[,] destination, int offsetX = 0, int offsetY = 0)
+    public static void CopyTo<T>(this T[,] source, T[,] destination, int destinationOffsetX = 0, int destinationOffsetY = 0)
     {
-      if (source.GetLength(0) + offsetX > destination.GetLength(0) || source.GetLength(1) + offsetY > destination.GetLength(1))
+      if (source.GetLength(0) + destinationOffsetX > destination.GetLength(0) || source.GetLength(1) + destinationOffsetY > destination.GetLength(1))
         throw new ArgumentException("The values of this array will not fit into the destination array");
 
       for (int i = 0; i < source.GetLength(0); i++)
