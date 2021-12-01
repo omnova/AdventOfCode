@@ -7,7 +7,17 @@ namespace AdventOfCode.Year2021.Day01
   {
     public object Run(string input)
     {
-      throw new NotImplementedException();
+      var depths = input.Split(Environment.NewLine).Select(int.Parse).ToList();
+
+      int count = 0;
+
+      for (int i = 1; i < depths.Count; i++)
+      {
+        if (depths[i] > depths[i - 1])
+          count++;
+      }
+
+      return count;
     }
   }
 }
