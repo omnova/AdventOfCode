@@ -7,28 +7,27 @@ namespace AdventOfCode.Year2021.Day06
   {
     public object Run(string input)
     {
-      var fish = input.Split(',').Select(int.Parse).ToList();
+      var fishes = input.Split(',').Select(int.Parse).ToList();
 
-      for (int i = 0; i < 80; i++)
+      var fishCounts = new long[9];
+
+      foreach (var fish in fishes)
+        fishCounts[fish]++;
+
+      for (long i = 0; i < 80; i++)
       {
-        int newFish = 0;
+        long newFish = fishCounts[0];
 
-        for (int f = 0; f < fish.Count; f++)
+        for (int f = 1; f < fishCounts.Length; f++)
         {
-          fish[f]--;
-
-          if (fish[f] < 0)
-          {
-            fish[f] = 6;
-            newFish++;
-          }
+          fishCounts[f - 1] = fishCounts[f];
         }
 
-        for (int f = 0; f < newFish; f++)
-          fish.Add(8);
-      }     
+        fishCounts[6] += newFish;
+        fishCounts[8] = newFish;
+      }
 
-      return fish.Count;
+      return fishCounts.Sum();
     }
   }
 }
