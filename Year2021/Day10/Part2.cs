@@ -32,8 +32,6 @@ namespace AdventOfCode.Year2021.Day10
       {
         var stack = new Stack<char>();
 
-        bool isCorrupt = false;
-
         foreach (char c in line)
         {
           if (openCloseMatches.ContainsKey(c))
@@ -42,12 +40,12 @@ namespace AdventOfCode.Year2021.Day10
             stack.Pop();
           else
           {
-            isCorrupt = true;
+            stack.Clear()
             break;
           }
         }
 
-        if (!isCorrupt && stack.Count > 0)
+        if (stack.Count > 0)
         {
           long score = 0;
 
