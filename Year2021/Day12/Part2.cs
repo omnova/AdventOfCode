@@ -12,16 +12,18 @@ namespace AdventOfCode.Year2021.Day12
       var nodes = connections.SelectMany(l => l).Distinct().ToList();
       var nextNodes = nodes.Where(n => n != "end").ToDictionary(n => n, n => connections.Where(p => p[0] == n && p[1] != "start").Select(p => p[1]).Union(connections.Where(p => p[1] == n && p[0] != "start").Select(p => p[0]).ToList()).ToList());
 
-      var fullPaths = new List<string> { "start" };
-      var completedPaths = new List<string>();
+      var fullPaths = new HashSet<string> { "start" };
+      var completedPaths = new HashSet<string>();
 
       do
       {
-        var newPaths = new List<string>(fullPaths.Count * 2);
+        var newPaths = new HashSet<string>();
 
         foreach (var path in fullPaths)
         {
-          string currentNode = path.Split(',').Last();
+          var pathNodes = path.Split(',');
+
+          string currentNode = pathNodes.Last();
 
           if (currentNode == "end")
           {
@@ -29,22 +31,21 @@ namespace AdventOfCode.Year2021.Day12
             continue;
           }
 
-          var hasRevisitedSmalLCave = path.Split(',').Where(n => n.ToLower() == n).Any(n => path.Split(',').Count(c => c == n) > 1);
+          var hasRevisitedSmalLCave = pathNodes.Where(n => n.ToLower() == n).Any(n => pathNodes.Count(c => c == n) > 1);
 
-          var validNextNodes = nextNodes[currentNode].Where(n => n.ToUpper() == n || !path.Split(',').Contains(n) || (!hasRevisitedSmalLCave && path.Split(',').Count(pn => pn == n) < 2)).ToList();
+          var validNextNodes = nextNodes[currentNode].Where(n => n.ToUpper() == n || !pathNodes.Contains(n) || (!hasRevisitedSmalLCave && pathNodes.Count(pn => pn == n) < 2)).ToList();
 
           foreach (var validNextNode in validNextNodes)
           {
             string newPath = path + "," + validNextNode;
 
-            if (!newPaths.Contains(newPath))
-              newPaths.Add(newPath);
+            newPaths.Add(newPath);
           }
         }
 
-        fullPaths = newPaths.Distinct().ToList();
+        fullPaths = newPaths;
       }
-      while (fullPaths.Any());
+      while (fullPaths.Count > 0);
 
       return completedPaths.Count;
     }
