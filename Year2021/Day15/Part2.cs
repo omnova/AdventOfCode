@@ -51,7 +51,6 @@ namespace AdventOfCode.Year2021.Day15
       for (int risk = grid[0, 0]; risk < int.MaxValue && activeNodes.Any(); risk++)
       {
         var newActiveNodes = new List<Node>();
-        var removedNodes = new List<Node>();
 
         foreach (var node in activeNodes)
         {
@@ -79,18 +78,17 @@ namespace AdventOfCode.Year2021.Day15
             newActiveNodes.Add(new Node(node.X, node.Y + 1));
           }
 
-          if ((node.X == 0 || minRiskGrid[node.X - 1, node.Y] > 0) && (node.X + 1 == grid.GetLength(0) || minRiskGrid[node.X + 1, node.Y] > 0)
-            && (node.Y == 0 || minRiskGrid[node.X, node.Y - 1] > 0) && (node.Y + 1 == grid.GetLength(1) || minRiskGrid[node.X, node.Y + 1] > 0))
+          if (!((node.X == 0 || minRiskGrid[node.X - 1, node.Y] > 0) && (node.X + 1 == grid.GetLength(0) || minRiskGrid[node.X + 1, node.Y] > 0)
+            && (node.Y == 0 || minRiskGrid[node.X, node.Y - 1] > 0) && (node.Y + 1 == grid.GetLength(1) || minRiskGrid[node.X, node.Y + 1] > 0)))
           {
-            removedNodes.Add(node);
+            newActiveNodes.Add(node);
           }
         }
 
         if (minRiskGrid[grid.GetLength(0) - 1, grid.GetLength(1) - 1] > 0)
           return minRiskGrid[grid.GetLength(0) - 1, grid.GetLength(1) - 1] - minRiskGrid[0, 0];
 
-        activeNodes.RemoveAll(n => removedNodes.Contains(n));
-        activeNodes.AddRange(newActiveNodes);
+        activeNodes = newActiveNodes;
       }
 
       return null;
