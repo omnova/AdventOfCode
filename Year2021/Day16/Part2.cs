@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace AdventOfCode.Year2021.Day16
 {
@@ -9,7 +8,7 @@ namespace AdventOfCode.Year2021.Day16
   {  
     public object Run(string input)
     {
-      string packet = string.Join(null, input.Select(c => Convert.ToByte("0" + c.ToString(), 16)).Select(b => Convert.ToString(b, 2).PadLeft(8, '0').Substring(4)).ToArray());
+      string packet = string.Join(null, input.Select(c => Convert.ToString(Convert.ToByte(c.ToString(), 16), 2).PadLeft(8, '0').Substring(4)).ToArray());
 
       int cursor = 0;
 
@@ -82,22 +81,17 @@ namespace AdventOfCode.Year2021.Day16
         }
       }
 
-      if (packetTypeID == 0)
-        return packetValues.Sum();
-      else if (packetTypeID == 1)
-        return packetValues.Aggregate((a, b) => (long)a * (long)b);
-      else if (packetTypeID == 2)
-        return packetValues.Min();
-      else if (packetTypeID == 3)
-        return packetValues.Max();
-      else if (packetTypeID == 5)
-        return packetValues[0] > packetValues[1] ? 1 : 0;
-      else if (packetTypeID == 6)
-        return packetValues[0] < packetValues[1] ? 1 : 0;
-      else if (packetTypeID == 7)
-        return packetValues[0] == packetValues[1] ? 1 : 0;
-
-      throw new Exception("wat");
+      return packetTypeID switch
+      {
+        0 => packetValues.Sum(),
+        1 => packetValues.Aggregate(1L, (a, b) => a * b),
+        2 => packetValues.Min(),
+        3 => packetValues.Max(),
+        5 => packetValues[0] > packetValues[1] ? 1 : 0,
+        6 => packetValues[0] < packetValues[1] ? 1 : 0,
+        7 => packetValues[0] == packetValues[1] ? 1 : 0,
+        _ => throw new Exception("wat")
+      };
     }
   }
 }

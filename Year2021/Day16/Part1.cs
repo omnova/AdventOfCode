@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace AdventOfCode.Year2021.Day16
 {
@@ -9,7 +8,7 @@ namespace AdventOfCode.Year2021.Day16
   {
     public object Run(string input)
     {
-      string packet = string.Join(null, input.Select(c => Convert.ToByte("0" + c.ToString(), 16)).Select(b => Convert.ToString(b, 2).PadLeft(8, '0').Substring(4)).ToArray());
+      string packet = string.Join(null, input.Select(c => Convert.ToString(Convert.ToByte(c.ToString(), 16), 2).PadLeft(8, '0').Substring(4)).ToArray());
 
       int versionNumberTotal = 0;
       int cursor = 0;
