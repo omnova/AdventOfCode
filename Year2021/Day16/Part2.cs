@@ -8,7 +8,7 @@ namespace AdventOfCode.Year2021.Day16
   {  
     public object Run(string input)
     {
-      string packet = string.Join(null, input.Select(c => Convert.ToString(Convert.ToByte(c.ToString(), 16), 2).PadLeft(8, '0').Substring(4)).ToArray());
+      string packet = string.Join(null, input.Select(c => Convert.ToString(Convert.ToByte(c.ToString(), 16), 2).PadLeft(8, '0')[4..]).ToArray());
 
       int cursor = 0;
 
@@ -19,7 +19,7 @@ namespace AdventOfCode.Year2021.Day16
 
     private long GetPacketValue(string packet, ref int cursor)
     {      
-      int packetTypeID = Convert.ToInt32(packet.Substring(cursor + 3, 3), 2);
+      int packetTypeID = Convert.ToInt32(packet[cursor..(cursor + 3)].Substring(cursor + 3, 3), 2);
 
       cursor += 6;
 
@@ -50,7 +50,7 @@ namespace AdventOfCode.Year2021.Day16
     {
       char lengthMode = packet[cursor++];
 
-      var packetValues = new List<long>();
+      var subPacketValues = new List<long>();
 
       if (lengthMode == '0')
       {
@@ -64,7 +64,7 @@ namespace AdventOfCode.Year2021.Day16
         {
           long value = GetPacketValue(packet, ref cursor);
 
-          packetValues.Add(value);
+          subPacketValues.Add(value);
         }
       }
       else
@@ -77,19 +77,19 @@ namespace AdventOfCode.Year2021.Day16
         {
           long value = GetPacketValue(packet, ref cursor);
 
-          packetValues.Add(value);
+          subPacketValues.Add(value);
         }
       }
 
       return packetTypeID switch
       {
-        0 => packetValues.Sum(),
-        1 => packetValues.Aggregate(1L, (a, b) => a * b),
-        2 => packetValues.Min(),
-        3 => packetValues.Max(),
-        5 => packetValues[0] > packetValues[1] ? 1 : 0,
-        6 => packetValues[0] < packetValues[1] ? 1 : 0,
-        7 => packetValues[0] == packetValues[1] ? 1 : 0,
+        0 => subPacketValues.Sum(),
+        1 => subPacketValues.Aggregate(1L, (a, b) => a * b),
+        2 => subPacketValues.Min(),
+        3 => subPacketValues.Max(),
+        5 => subPacketValues[0] > subPacketValues[1] ? 1 : 0,
+        6 => subPacketValues[0] < subPacketValues[1] ? 1 : 0,
+        7 => subPacketValues[0] == subPacketValues[1] ? 1 : 0,
         _ => throw new Exception("wat")
       };
     }
