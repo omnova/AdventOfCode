@@ -40,7 +40,7 @@ namespace AdventOfCode.Year2021.Day10
             stack.Pop();
           else
           {
-            stack.Clear()
+            stack.Clear();
             break;
           }
         }
