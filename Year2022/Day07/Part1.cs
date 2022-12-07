@@ -6,74 +6,47 @@ namespace AdventOfCode.Year2022.Day07
 {
   public class Part1 : IPuzzle
   {
-    private class Folder
-    {
-      public string Name;
-      public Folder Parent;
-      public int Size;
-      public List<Folder> Children = new List<Folder>();
-
-      public int TotalSize => this.Children.Sum(c => c.TotalSize) + this.Size;
-    }
-
-
     public object Run(string input)
     {
       var commands = input.Split(Environment.NewLine).Select(l => l.Split(' ')).ToArray();
 
-      var folders = new List<Folder> { new Folder { Name = "root" } };
-      var folderPath = new Stack<Folder>(folders);
+      var folders = Dictionary<string, int>();
+      var folderPath = new Stack<string>("root");
 
       for (int i = 0; i < commands.Length; i++)
       {
         var command = commands[i];
 
-        if (command[0] == "$")
+        if (command[0] == "$" && command[1] == "cd")
         {
-          if (command[1] == "cd")
+          if (command[2] == "/")
           {
-            if (command[2] == "/")
+            while (folderPath.Count > 1)
             {
-              while (folderPath.Count > 1)
-              {
-                folderPath.Pop();
-              }
-            }
-            else if (command[2] == "..")
               folderPath.Pop();
-            else
-            {
-              var child = folderPath.Peek().Children.FirstOrDefault(c => c.Name == command[2]);
-
-              if (child == null)
-              {
-                child = new Folder
-                {
-                  Name = command[2],
-                  Parent = folderPath.Peek(),
-                  Children = new List<Folder>()
-                };
-
-                folderPath.Peek().Children.Add(child);
-
-                folders.Add(child);
-              }
-
-              folderPath.Push(child);
             }
           }
-          else if (command[1] == "ls")
+          else if (command[2] == "..")
+            folderPath.Pop();
+          else
           {
-            while (i + 1 < commands.Length && commands[i + 1][0] != "$")
-            {
-              if (commands[++i][0] != "dir")
-                folderPath.Peek().Size += int.Parse(commands[i][0]);
-            }
+            folderPath.Push(command[2]);
+
+            string path = command[2]; // string.Join("/", folderPath);
+
+            if (!folders.ContainsKey(path))
+              folders.Add(path, 0);
           }
+        }
+        else if (command[0] != "$" && command[0] != "dir")
+        {
+          int size = int.Parse(commands[i][0]);
+
+          folderPath.ToList().ForEach(f => f.Value += size);
         }
       }
 
-      int totalSize = folders.Where(d => d.TotalSize < 100000).Sum(d => d.TotalSize);
+      int totalSize = folders.Values.Where(d => d < 100000).Sum();
 
       return totalSize;
     }
