@@ -6,6 +6,7 @@
     <RootNamespace>AdventOfCode</RootNamespace>
     <AssemblyName>advent</AssemblyName>
     <StartupObject>AdventOfCode.Program</StartupObject>
+    <Nullable>disable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
@@ -427,6 +428,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Year2022\Day05\Input.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Year2022\Day07\Input.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Year2022\Day06\Input.txt">
